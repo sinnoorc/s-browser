@@ -6,16 +6,16 @@ import '../model/category.dart';
 import '../model/history.dart';
 
 class DatabaseHelper {
-  static final DatabaseHelper _instance = DatabaseHelper.internal();
-  factory DatabaseHelper() => _instance;
-
-  static Database? db;
+  static final DatabaseHelper instance = DatabaseHelper.internal();
+  factory DatabaseHelper() => instance;
+  DatabaseHelper.internal();
 
   static Database? _database;
-  static const _databaseName = 'sbrowser.db';
 
-  final String _historyTable = 'history';
-  final String _categoryTable = 'category';
+  final _databaseName = 'sbrowser.db';
+
+  final _historyTable = 'history';
+  final _categoryTable = 'category';
   final _databaseVersion = 1;
 
   Future<Database> get database async {
@@ -48,8 +48,6 @@ class DatabaseHelper {
       )
     ''');
   }
-
-  DatabaseHelper.internal();
 
   Future<History> insertHistory(History history) async {
     final db = await database;
